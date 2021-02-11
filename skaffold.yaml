@@ -12,10 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: skaffold/v2beta11
+apiVersion: skaffold/v2beta12
 kind: Config
 metadata:
   name: ledger-db
+requires:
+  - git:
+      repo: https://github.com/gsquared94/bank-of-anthos-demo
+      path: setup
 build:
   artifacts:
   - image: ledger-db
@@ -23,7 +27,3 @@ deploy:
   kubectl:
     manifests:
     - ./ledger-db.yaml
-profiles:
-- name: cloudbuild
-  build:
-    googleCloudBuild: {}
